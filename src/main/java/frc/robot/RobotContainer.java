@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -53,6 +54,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController joystick2 = new CommandXboxController(1);
 
     private final CommandXboxController testController = new CommandXboxController(2);
 
@@ -88,9 +90,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(joystick.getLeftY() * MaxSpeed * -1) // Drive forward with negative Y (forward)
+                    .withVelocityY(joystick.getLeftX() * MaxSpeed * -1) // Drive left with negative X (left)
+                    .withRotationalRate(joystick.getRightX() * MaxAngularRate * -1) // Drive counterclockwise with negative X (left)
             )
         );
 
@@ -106,13 +108,13 @@ public class RobotContainer {
         joystick.povUp().onTrue(Commands.runOnce(climberSubsystem::goLevelOne, climberSubsystem));
 
         // Intake Bindings
-        joystick.povLeft().onTrue(Commands.runOnce(() -> fuelSubsystem.stateControl(fuelSubsystemState.INTAKING), fuelSubsystem));
-        joystick.povRight().onTrue(Commands.runOnce(() -> fuelSubsystem.stateControl(fuelSubsystemState.EJECTING), fuelSubsystem));
-        joystick.povRight().or(joystick.povLeft()).onFalse(Commands.runOnce(() -> fuelSubsystem.stateControl(fuelSubsystemState.IDLE), fuelSubsystem));
+        joystick2.povLeft().onTrue(Commands.runOnce(() -> fuelSubsystem.stateControl(fuelSubsystemState.INTAKING), fuelSubsystem));
+        joystick2.povRight().onTrue(Commands.runOnce(() -> fuelSubsystem.stateControl(fuelSubsystemState.EJECTING), fuelSubsystem));
+        joystick2.povRight().or(joystick2.povLeft()).onFalse(Commands.runOnce(() -> fuelSubsystem.stateControl(fuelSubsystemState.IDLE), fuelSubsystem));
 
         // Shooter (placebo) bindings
         // Start warming up when holding down X button. If allowed to warm up, the robot will autonomously shift into shooting mode. If you let go, everything should stop.
-        joystick.x().onTrue(
+        joystick2.x().onTrue(
             Commands.runOnce( // DPM - If you are in WARMING already and the robot is trying to automatically go to shooting, this will tell the robot to go back to WARMING. It may still work, but may also cause some wierd behavior. In your subsystem, make it so that the State stays in SHOOTING, if COMMANDED TO WARMING while in SHOOTING
                 () -> fuelSubsystem.stateControl(fuelSubsystemState.WARMING),
                 fuelSubsystem

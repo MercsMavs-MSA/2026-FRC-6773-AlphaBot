@@ -305,7 +305,7 @@ public class CANFuelSubsystem extends SubsystemBase {
 
                 // If speed is right, break out into SHOOTING mode
                 // SHOOTING mode normally can't be accessed except by first warming up
-                if (GetShooterVelocity() >= 0.96*(LAUNCHING_LAUNCHER_SPEED)) {
+                if (GetShooterVelocity() >= 0.97*(LAUNCHING_LAUNCHER_SPEED)) {
                     currentState = fuelSubsystemState.SHOOTING;
                 }
 

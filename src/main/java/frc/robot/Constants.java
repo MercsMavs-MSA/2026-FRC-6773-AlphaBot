@@ -45,7 +45,7 @@ public final class Constants {
     // All values likely need to be tuned based on your robot
     public static final double INTAKE_INTAKING_SPEED = 30; //test comment
     public static final double INTAKE_EJECT_SPEED = -20;
-    public static final double LAUNCHING_LAUNCHER_SPEED = 90;
+    public static final double LAUNCHING_LAUNCHER_SPEED = 95;
     public static final double INDEXER_TRANSFER_SPEED = 110;
     public static final double INDEXER_INTAKING_SPEED = -18;
     public static final double INDEXER_EJECTING_SPEED = 18;

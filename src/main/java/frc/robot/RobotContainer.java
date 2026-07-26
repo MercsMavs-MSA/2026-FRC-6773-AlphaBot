@@ -72,7 +72,7 @@ public class RobotContainer {
 
     public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
-    private final Trigger teleOpEnabled = new Trigger(DriverStation::isTeleopEnabled);
+    private final Trigger robotEnabled = new Trigger(DriverStation::isEnabled);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -95,7 +95,7 @@ public class RobotContainer {
         SmartDashboard.putData("Auto Mode", autoChooser);
         configureBindings();
 
-        teleOpEnabled.onTrue(Commands.runOnce(() -> drivetrain.seedFieldCentric(), drivetrain));
+        robotEnabled.onTrue(Commands.runOnce(() -> drivetrain.seedFieldCentric(), drivetrain));
 
         // Warmup PathPlanner to avoid Java pauses
         CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand());

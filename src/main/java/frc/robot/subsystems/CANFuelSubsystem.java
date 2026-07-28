@@ -265,7 +265,7 @@ public class CANFuelSubsystem extends SubsystemBase {
         if (currentState == fuelSubsystemState.SHOOTING && state == fuelSubsystemState.WARMING)
         {
             System.out.println("No I'm already doing that");
-        }
+        } else
         {
             currentState = state;
         }

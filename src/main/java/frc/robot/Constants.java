@@ -30,6 +30,9 @@ public final class Constants {
     // Current limit for drivetrain motors. 60A is a reasonable maximum to reduce
     // likelihood of tripping breakers or damaging CIM motors
     public static final int DRIVE_MOTOR_CURRENT_LIMIT = 60;
+
+    // For holding heading during drive
+    public static final int SHOOTING_HEADING = -30;
   }
 
   public static final class FuelConstants {

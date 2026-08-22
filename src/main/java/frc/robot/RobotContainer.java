@@ -49,6 +49,7 @@ public class RobotContainer {
                                                                                        // based on controller stick
                                                                                        // sensitivity/drift)
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
@@ -57,6 +58,12 @@ public class RobotContainer {
                                                                                        // based on controller stick
                                                                                        // sensitivity/drift)
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage) // Use open-loop control for drive motors
+            .withForwardPerspective(ForwardPerspectiveValue.OperatorPerspective);
+
+    private final SwerveRequest.FieldCentricFacingAngle drive3 = new SwerveRequest.FieldCentricFacingAngle()
+            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1)
+
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
             .withForwardPerspective(ForwardPerspectiveValue.OperatorPerspective);
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
@@ -116,6 +123,12 @@ public class RobotContainer {
                         .withRotationalRate(joystick.getRightX() * MaxAngularRate * -1) // Drive counterclockwise with negative X (left)
             )
         );
+
+        joystick.leftBumper().whileTrue(drivetrain.applyRequest(
+            () -> drive3.withVelocityX(joystick.getLeftY() * MaxSpeed * -1)
+            .withVelocityY(joystick.getLeftX() * MaxSpeed * -1)
+            .withTargetDirection(Rotation2d.fromDegrees(DriveConstants.SHOOTING_HEADING))
+        ));
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.

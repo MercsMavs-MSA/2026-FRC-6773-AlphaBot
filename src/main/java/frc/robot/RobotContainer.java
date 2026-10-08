@@ -98,7 +98,7 @@ public class RobotContainer {
                 Commands.runOnce(() -> climberSubsystem.goLevelOne(), climberSubsystem));
         NamedCommands.registerCommand("stopClimb", Commands.runOnce(() -> climberSubsystem.goHome(), climberSubsystem));
 
-        autoChooser = AutoBuilder.buildAutoChooser("Tests"); // the param inside buildAutoChooser is <fileName>.auto;
+        autoChooser = AutoBuilder.buildAutoChooser(); // the param inside buildAutoChooser is <fileName>.auto;
         SmartDashboard.putData("Auto Mode", autoChooser);
         configureBindings();
 

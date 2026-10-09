@@ -19,7 +19,37 @@
         {
           "type": "named",
           "data": {
+            "name": "startIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "startWarming"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of MidAuto1"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 30.0
           }
         }
       ]

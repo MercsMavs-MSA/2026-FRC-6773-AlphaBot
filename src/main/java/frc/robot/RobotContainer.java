@@ -201,13 +201,11 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        // Simple drive forward auton
-        final var idle = new SwerveRequest.Idle();
         return autoChooser.getSelected();
     }
     
 
     public void periodic() {
-        drivetrain.updateWithLimelight("shooter_camera");
+        // drivetrain.updateWithLimelight("shooter_camera");
     }
 }
